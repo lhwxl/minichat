@@ -18,18 +18,7 @@ def client_while(client_socket: socket.socket):
 
 
 def main():
-	# 创建套接字
-	SERVER_SOCKET = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	SERVER_SOCKET.bind((CONFIGS["HOST"], CONFIGS["PORT"]))
-	SERVER_SOCKET.listen()
-	
-	# 等待用户连接
-	while True:
-		# 用户连接，启动新线程处理
-		client_socket, client_addr = SERVER_SOCKET.accept()
-		
-		client_thread = threading.Thread(target=client_while, args=(client_socket,))
-		client_thread.start()
+	pass
 		
 		
 
