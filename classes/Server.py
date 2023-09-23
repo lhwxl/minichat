@@ -1,12 +1,8 @@
+import socket
+from Singleton import Singleton
+
+
+@Singleton
 class Server:
-	
-	server = None
-	@classmethod
-	def get_server(cls):
-		if cls.server:
-			cls.server = Server()
-		
-		return cls.server
-	
-	def init(self):
-		pass
+	def __init__(self, addr=("", 8888)):
+		self.SERVER_SOCKET = socket.socket(addr)

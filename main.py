@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO,
                     encoding="utf-8")
 
 
-def client_while(client_socket: socket.socket):
+def client_while():
 	pass
 
 
