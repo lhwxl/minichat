@@ -1,5 +1,5 @@
 import socket
-from Singleton import Singleton
+from classes.Singleton import Singleton
 
 
 @Singleton
