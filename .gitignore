@@ -1,3 +1,7 @@
 .idea
 .vscode
+debugLogs/*
+Logs/*
 ~$*
+规划
+__pycache__
