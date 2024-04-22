@@ -1,16 +1,30 @@
 import socket
 import logging
+import logging.handlers
 import threading
+
 from json import load
+from sys import exit
+
 import status_code
 
-CONFIGS = load(open("config.json"))
+log = logging.getLogger(__name__)
+formatter = logging.Formatter('%(asctime)s %(levelname)s [%(filename)s]: %(message)s')
+log.setLevel(logging.DEBUG)
 
-logging.basicConfig(level=logging.INFO,
-                    format="[%(levelname)s] - [%(asctime)s] - [%(filename)s] - %(message)s",
-                    filename="log.log",
-                    filemode="a",
-                    encoding="utf-8")
+file_handler = logging.handlers.TimedRotatingFileHandler(filename=f"./log.log", encoding="utf-8", when="D")
+file_handler.setFormatter(formatter)
+file_handler.setLevel(logging.DEBUG)
+
+stream_handler = logging.StreamHandler()
+stream_handler.setFormatter(formatter)
+stream_handler.setLevel(logging.INFO)
+
+log.addHandler(file_handler)
+log.addHandler(stream_handler)
+
+CONFIGS = load(open("config.json"))
+log.debug("Config loaded")
 
 
 def client_while():
@@ -19,18 +33,19 @@ def client_while():
 
 def main():
 	pass
-		
-		
+
+
 
 
 if __name__ == '__main__':
-	logging.info("服务端运行")
-	
+	log.info("Server running")
+
 	try:
 		main()
 	except KeyboardInterrupt:
-		logging.debug("Ctrl+C输入")
-		
-	# finally:
-	# 	logging.info("服务端退出")
-	# 	exit(0)
+		log.debug("Ctrl+C inputted,exitting")
+	except Exception as e:
+		log.error(f"\nUnknown error,error massage: \n{e}")
+	finally:
+		logging.info("服务端退出")
+		exit(0)
